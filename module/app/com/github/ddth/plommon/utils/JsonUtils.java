@@ -1,4 +1,4 @@
-package ddth.play.plommon.utils;
+package com.github.ddth.plommon.utils;
 
 import org.codehaus.jackson.JsonNode;
 

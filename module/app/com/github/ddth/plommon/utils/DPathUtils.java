@@ -1,4 +1,4 @@
-package ddth.play.plommon.utils;
+package com.github.ddth.plommon.utils;
 
 import java.util.List;
 import java.util.Map;
