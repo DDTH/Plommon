@@ -9,11 +9,11 @@ Many times you just want to serialize your Java object to JSON-string and vice-v
 import com.github.ddth.plommon.utils.JsonUtils;
 . . .
 
-List\<String\> objList = new ArrayList\<String\>();
+List<String> objList = new ArrayList<String>();
 . . .
 
 String jsonString = JsonUtils.toJsonString(objList);
 . . .
 
-List\<?\> anotherObj = JsonUtils.fromJsonString(jsonString, List.class);
+List<?> anotherObj = JsonUtils.fromJsonString(jsonString, List.class);
 ```
