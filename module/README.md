@@ -13,4 +13,4 @@ See [../README.md](../README.md) for documentation.
 Utilities
 =========
 
-* [com.github.plommon.utils](com/github/ddth/plommon/utils/README.md)
+* [com.github.plommon.utils](app/com/github/ddth/plommon/utils/README.md)
