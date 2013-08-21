@@ -41,7 +41,7 @@ val main = play.Project(appName, appVersion, appDependencies).settings(
 Utilities
 =========
 
-* [com/github/ddth/plommon/utils/README.md]("com.github.plommon.utils")
+* [com.github.plommon.utils](com/github/ddth/plommon/utils/README.md)
 
 License
 -------

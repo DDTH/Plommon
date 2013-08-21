@@ -5,7 +5,13 @@ import org.codehaus.jackson.JsonNode;
 import play.libs.Json;
 
 /**
- * Json-related utilities
+ * Json-related utilities.
+ * 
+ * <p>
+ * Many times you just want to serialize your Java object to JSON-string and
+ * vice-versa, without touching any JsonNode object. This utility class provides
+ * methods to do just that.
+ * </p>
  * 
  * @author Thanh Nguyen <btnguyen2k@gmail.com>
  * @since 0.1.0
