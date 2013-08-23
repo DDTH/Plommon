@@ -11,7 +11,18 @@ import java.util.regex.Pattern;
  * Utility to access data from a hierarchy structure.
  * 
  * <p>
- * Assuming you have a complex data structure like the following:
+ * Notation:
+ * </p>
+ * 
+ * <ul>
+ * <li><code>.</code> (the dot character): path separator</li>
+ * <li><code>name</code>: access a map's attribute specified by <code>name</code></li>
+ * <li><code>[i]</code>: access i'th element of a list/array (0-based)</li>
+ * </ul>
+ * (example: <code>employees.[1].first_name</code>).
+ * 
+ * <p>
+ * Sample usage: assuming you have the following data structure:
  * </p>
  * 
  * <pre>
@@ -37,6 +48,39 @@ import java.util.regex.Pattern;
  * employees.add(employee2);
  * </pre>
  * 
+ * <p>
+ * You can access company's attributes:
+ * </p>
+ * 
+ * <pre>
+ * String companyName = DPathUtils.getValue(company, &quot;name&quot;, String.class);
+ * // got string &quot;Monster Corp.&quot;
+ * 
+ * Integer companyYear = DPathUtils.getValue(company, &quot;year&quot;, Integer.class);
+ * // got integer 2003
+ * </pre>
+ * 
+ * <p>
+ * You can access the two employee:
+ * </p>
+ * 
+ * <pre>
+ * Object user1 = DPathUtils.getValue(company, &quot;employees.[0]&quot;);
+ * Map&lt;String, Object&gt; user2 = DPathUtils.getValue(company, &quot;employees.[1]&quot;,
+ * 		Map.class);
+ * </pre>
+ * 
+ * <p>
+ * Or, employee's attributes:
+ * </p>
+ * 
+ * <pre>
+ * String firstName1 = DPathUtils.getValue(company, &quot;employees.[0].first_name&quot;,
+ * 		String.class);
+ * Object email2 = DPathUtils.getValue(company, &quot;employees.[1].email&quot;);
+ * Long age2 = DPathUtils.getValue(company, &quot;employees.[1].age&quot;, Long.class);
+ * </pre>
+ * 
  * @author Thanh Nguyen <btnguyen2k@gmail.com>
  * @since 0.1.0
  */
@@ -60,6 +104,26 @@ public class DPathUtils {
 		Object temp = getValue(target, dPath);
 		if (temp == null) {
 			return null;
+		}
+		if (temp instanceof Number) {
+			if (clazz == Byte.class) {
+				return (T) (Byte) ((Number) temp).byteValue();
+			}
+			if (clazz == Short.class) {
+				return (T) (Short) ((Number) temp).shortValue();
+			}
+			if (clazz == Integer.class) {
+				return (T) (Integer) ((Number) temp).intValue();
+			}
+			if (clazz == Long.class) {
+				return (T) (Long) ((Number) temp).longValue();
+			}
+			if (clazz == Float.class) {
+				return (T) (Float) ((Number) temp).floatValue();
+			}
+			if (clazz == Double.class) {
+				return (T) (Double) ((Number) temp).doubleValue();
+			}
 		}
 		if (clazz.isAssignableFrom(temp.getClass())) {
 			return (T) temp;
@@ -150,6 +214,7 @@ public class DPathUtils {
 		throw new IllegalArgumentException();
 	}
 
+	@SuppressWarnings({ "unused", "unchecked" })
 	public static void main(String[] args) {
 		Map<String, Object> company = new HashMap<String, Object>();
 		company.put("name", "Monster Corp.");
@@ -172,7 +237,25 @@ public class DPathUtils {
 		employee2.put("age", 30);
 		employees.add(employee2);
 
-		System.out.println(DPathUtils.getValue(company, "name"));
-		System.out.println(DPathUtils.getValue(company, "year"));
+		String companyName = DPathUtils.getValue(company, "name", String.class);
+		Integer companyYear = DPathUtils.getValue(company, "year",
+				Integer.class);
+
+		Object user1 = DPathUtils.getValue(company, "employees.[0]");
+		Map<String, Object> user2 = DPathUtils.getValue(company,
+				"employees.[1]", Map.class);
+
+		String firstName1 = DPathUtils.getValue(company,
+				"employees.[0].first_name", String.class);
+		Object email2 = DPathUtils.getValue(company, "employees.[1].email");
+		Long age2 = DPathUtils.getValue(company, "employees.[1].age",
+				Long.class);
+
+		System.out.println(user1);
+		System.out.println(user2);
+
+		System.out.println(firstName1);
+		System.out.println(email2);
+		System.out.println(age2);
 	}
 }
