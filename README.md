@@ -16,14 +16,15 @@ See [RELEASE-NOTES.md](RELEASE-NOTES.md).
 Installation
 ------------
 
-Play framework 2.x:
+##### SNAPSHOT Releases #####
 
-* add `"com.github.ddth" % "play-module-plommon" % "0.1.0-SNAPSHOT"` to your dependencies (`project/Build.scala`):
+* add `"com.github.ddth" %% "play-module-plommon" % "<version>-SNAPSHOT"` to your dependencies (`project/Build.scala`):
 
+Example:
 ```scala
 val appDependencies = Seq(
   // Add your project dependencies here,
-  "com.github.ddth" % "play-module-plommon" % "0.1.0-SNAPSHOT",
+  "com.github.ddth" %% "play-module-plommon" % "0.1.0-SNAPSHOT",
   javaCore,
   javaJdbc
 )
@@ -31,12 +32,28 @@ val appDependencies = Seq(
 
 * add `Sonatype snapshots repository` to resolver list.
 
+Example:
 ```scala
 val main = play.Project(appName, appVersion, appDependencies).settings(
   // Add your own project settings here
   resolvers += "Sonatype snapshots repository" at "http://oss.sonatype.org/content/repositories/snapshots/"
 )
 ```
+
+##### Stable Releases #####
+
+* add `"com.github.ddth" %% "play-module-plommon" % "<version>"` to your dependencies (`project/Build.scala`):
+
+Example:
+```scala
+val appDependencies = Seq(
+  // Add your project dependencies here,
+  "com.github.ddth" %% "play-module-plommon" % "0.1.0",
+  javaCore,
+  javaJdbc
+)
+```
+
 
 Utilities
 =========
