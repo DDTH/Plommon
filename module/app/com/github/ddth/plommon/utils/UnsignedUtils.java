@@ -2,13 +2,16 @@ package com.github.ddth.plommon.utils;
 
 import java.math.BigInteger;
 
+import com.google.common.primitives.UnsignedLongs;
+
 /**
- * Unsigned longs and ints utility class.
+ * Utility to work with unsigned longs and ints, radix up to 62 (0-9, A-Z and
+ * a-z).
  * 
- * Note: most of methods in this class are based on Google Guava's
- * UnsignedLongs' and UnsignedInts' source code. I reimplement most of
- * UnsignedLongs' and UnsignedInts' methods in this class so that we do not need
- * to include the whole Guava library as depencency.
+ * Note: this class has Google Guava as its dependency.
+ * 
+ * Note: Some methods in this class are taken from Google Guava's UnsignedLongs'
+ * and UnsignedInts' source code, and are modified to work with radix 62.
  * 
  * @author Thanh Nguyen <btnguyen2k@gmail.com>
  * @since 0.2.0
@@ -34,8 +37,8 @@ public class UnsignedUtils {
     static {
         BigInteger overflow = new BigInteger("10000000000000000", 16);
         for (int i = Character.MIN_RADIX; i <= MAX_RADIX; i++) {
-            maxValueDivs[i] = divide(MAX_VALUE, i);
-            maxValueMods[i] = (int) remainder(MAX_VALUE, i);
+            maxValueDivs[i] = UnsignedLongs.divide(MAX_VALUE, i);
+            maxValueMods[i] = (int) UnsignedLongs.remainder(MAX_VALUE, i);
             maxSafeDigits[i] = overflow.toString(i).length() - 1;
         }
     }
@@ -59,119 +62,22 @@ public class UnsignedUtils {
     }
 
     /**
-     * Returns the digit character.
+     * Determines the character representation for a specific digit in the
+     * specified radix.
      * 
-     * @param mod
+     * Note: If the value of radix is not a valid radix, or the value of digit
+     * is not a valid digit in the specified radix, the null character
+     * ('\u0000') is returned.
+     * 
+     * @param digit
      * @param radix
      * @return
      */
-    public static char forDigit(int mod, int radix) {
-        if (mod >= 0 && mod < radix && radix >= Character.MIN_RADIX && radix <= MAX_RADIX) {
-            return digits[mod];
+    public static char forDigit(int digit, int radix) {
+        if (digit >= 0 && digit < radix && radix >= Character.MIN_RADIX && radix <= MAX_RADIX) {
+            return digits[digit];
         }
-        return '\0';
-    }
-
-    /**
-     * A (self-inverse) bijection which converts the ordering on unsigned longs
-     * to the ordering on longs, that is, {@code a <= b} as unsigned longs if
-     * and only if {@code rotate(a) <= rotate(b)} as signed longs.
-     */
-    private static long flip(long a) {
-        return a ^ Long.MIN_VALUE;
-    }
-
-    /**
-     * Compares the two specified {@code long} values, treating them as unsigned
-     * values between {@code 0} and {@code 2^64 - 1} inclusive.
-     * 
-     * @param a
-     *            the first unsigned {@code long} to compare
-     * @param b
-     *            the second unsigned {@code long} to compare
-     * @return a negative value if {@code a} is less than {@code b}; a positive
-     *         value if {@code a} is greater than {@code b}; or zero if they are
-     *         equal
-     */
-    public static int compare(long a, long b) {
-        long flipa = flip(a);
-        long flipb = flip(b);
-        return (flipa < flipb) ? -1 : ((flipa > flipb) ? 1 : 0);
-    }
-
-    /**
-     * Returns dividend / divisor, where the dividend and divisor are treated as
-     * unsigned 64-bit quantities.
-     * 
-     * @param dividend
-     *            the dividend (numerator)
-     * @param divisor
-     *            the divisor (denominator)
-     * @throws ArithmeticException
-     *             if divisor is 0
-     */
-    public static long divide(long dividend, long divisor) {
-        if (divisor < 0) { // i.e., divisor >= 2^63:
-            if (compare(dividend, divisor) < 0) {
-                return 0; // dividend < divisor
-            } else {
-                return 1; // dividend >= divisor
-            }
-        }
-
-        // Optimization - use signed division if dividend < 2^63
-        if (dividend >= 0) {
-            return dividend / divisor;
-        }
-
-        /*
-         * Otherwise, approximate the quotient, check, and correct if necessary.
-         * Our approximation is guaranteed to be either exact or one less than
-         * the correct value. This follows from fact that floor(floor(x)/i) ==
-         * floor(x/i) for any real x and integer i != 0. The proof is not quite
-         * trivial.
-         */
-        long quotient = ((dividend >>> 1) / divisor) << 1;
-        long rem = dividend - quotient * divisor;
-        return quotient + (compare(rem, divisor) >= 0 ? 1 : 0);
-    }
-
-    /**
-     * Returns dividend % divisor, where the dividend and divisor are treated as
-     * unsigned 64-bit quantities.
-     * 
-     * @param dividend
-     *            the dividend (numerator)
-     * @param divisor
-     *            the divisor (denominator)
-     * @throws ArithmeticException
-     *             if divisor is 0
-     * @since 11.0
-     */
-    public static long remainder(long dividend, long divisor) {
-        if (divisor < 0) { // i.e., divisor >= 2^63:
-            if (compare(dividend, divisor) < 0) {
-                return dividend; // dividend < divisor
-            } else {
-                return dividend - divisor; // dividend >= divisor
-            }
-        }
-
-        // Optimization - use signed modulus if dividend < 2^63
-        if (dividend >= 0) {
-            return dividend % divisor;
-        }
-
-        /*
-         * Otherwise, approximate the quotient, check, and correct if necessary.
-         * Our approximation is guaranteed to be either exact or one less than
-         * the correct value. This follows from fact that floor(floor(x)/i) ==
-         * floor(x/i) for any real x and integer i != 0. The proof is not quite
-         * trivial.
-         */
-        long quotient = ((dividend >>> 1) / divisor) << 1;
-        long rem = dividend - quotient * divisor;
-        return rem - (compare(rem, divisor) >= 0 ? divisor : 0);
+        return '\u0000';
     }
 
     /**
@@ -365,46 +271,5 @@ public class UnsignedUtils {
     public static String toString(int x, int radix) throws IllegalArgumentException {
         long asLong = x & INT_MASK;
         return toString(asLong, radix);
-    }
-
-    public static void main(String[] args) {
-        long l = 0xFFFFFFFFFF000000L;
-        String sl16 = toString(l, 16);
-        String sl34 = toString(l, 34);
-        String slmax = toString(l, MAX_RADIX);
-        System.out.println(sl16);
-        System.out.println(sl34);
-        System.out.println(slmax);
-        long l16 = parseLong(sl16, 16);
-        System.out.println(l == l16);
-        System.out.println(compare(l, l16));
-        long l34 = parseLong(sl34, 34);
-        System.out.println(l == l34);
-        System.out.println(compare(l, l34));
-        long lmax = parseLong(slmax, MAX_RADIX);
-        System.out.println(l == lmax);
-        System.out.println(compare(l, lmax));
-
-        System.out.println();
-
-        int i = 0xFFFFF123;
-        System.out.println(toString(i, 16));
-        System.out.println(toString(i, 34));
-        System.out.println(toString(i, MAX_RADIX));
-        String si16 = toString(i, 16);
-        String si34 = toString(i, 34);
-        String simax = toString(i, MAX_RADIX);
-        System.out.println(si16);
-        System.out.println(si34);
-        System.out.println(simax);
-        long i16 = parseInt(si16, 16);
-        System.out.println(i == i16);
-        System.out.println(compare(i, i16));
-        long i34 = parseInt(si34, 34);
-        System.out.println(i == i34);
-        System.out.println(compare(i, i34));
-        long imax = parseInt(simax, MAX_RADIX);
-        System.out.println(i == imax);
-        System.out.println(compare(i, imax));
     }
 }
