@@ -127,3 +127,13 @@ SessionUtils.setSession("user", user, 300);
 Object obj = SessionUtils.getSession("user");
 . . .
 ```
+
+UnsignedUtils
+-------------
+
+Utility to work with unsigned `long`s and `int`s, radix up to `62` (`0-9`, `A-Z` and `a-z`).
+
+* `parseInt(s, radix)`: parse a unsigned int with the given radix, up to `62`.
+* `parseLong(s, radix)`: parse a unsigned long with the given radix, up to `62`.
+* `toString(intValue, radix)`: convert a unsigned int to string for the given radix, up to `62`.
+* `toString(longValue, radix)`: convert a unsigned long to string for the given radix, up to `62`.

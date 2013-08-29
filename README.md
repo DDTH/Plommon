@@ -11,6 +11,10 @@ Project home:
 Release-notes
 -------------
 
+Latest stable release: v0.1.0.
+
+Latest SNAPSHOT release: v0.2.0-SNAPSHOT.
+
 See [RELEASE-NOTES.md](RELEASE-NOTES.md).
 
 Installation
