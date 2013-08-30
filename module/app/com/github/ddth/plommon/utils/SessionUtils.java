@@ -98,6 +98,6 @@ public class SessionUtils {
 		if (ttl > 0) {
 			sEntry.put(KEY_EXPIRY, System.currentTimeMillis() + ttl * 1000);
 		}
-		Controller.session(key, JsonUtils.toJsonString(value));
+		Controller.session(key, JsonUtils.toJsonString(sEntry));
 	}
 }
