@@ -9,7 +9,7 @@ object ApplicationBuild extends Build {
 
   val appDependencies = Seq(
     // Add your project dependencies here,
-    "com.google.guava" % "guava" % "15.0-rc1",
+    "com.google.guava" % "guava" % "14.0",
     javaCore,
     javaJdbc,
     javaEbean
