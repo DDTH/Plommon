@@ -34,18 +34,9 @@ public class JsonUtils {
      * @param clazz
      * @return
      */
-    @SuppressWarnings("unchecked")
     public static <T> T fromJsonString(String jsonString, Class<T> clazz) {
-        Object obj = fromJsonString(jsonString);
-        if (obj == null || clazz == null) {
-            return null;
-        }
-        if (clazz.isAssignableFrom(obj.getClass())) {
-            return (T) obj;
-        } else {
-            String msg = "Can not cast to class [" + clazz + "]!";
-            throw new ClassCastException(msg);
-        }
+        JsonNode jsonNode = Json.parse(jsonString);
+        return jsonNode != null ? Json.fromJson(jsonNode, clazz) : null;
     }
 
     /**
