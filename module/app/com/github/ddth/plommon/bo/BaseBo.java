@@ -3,6 +3,7 @@ package com.github.ddth.plommon.bo;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.github.ddth.plommon.utils.DPathUtils;
@@ -103,5 +104,19 @@ public class BaseBo {
      */
     synchronized public String toJson() {
         return JsonUtils.toJsonString(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof BaseBo)) {
+            return false;
+        }
+        BaseBo other = (BaseBo) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(attributes, other.attributes);
+        return eb.isEquals();
     }
 }
