@@ -5,11 +5,13 @@ import play.Project._
 object ApplicationBuild extends Build {
 
   val appName         = "play-module-plommon"
-  val appVersion      = "0.2.1-SNAPSHOT"
+  val appVersion      = "0.3.0-SNAPSHOT"
 
   val appDependencies = Seq(
     // Add your project dependencies here,
     "com.google.guava" % "guava" % "14.0",
+    "org.springframework" % "spring-jdbc" % "3.2.4.RELEASE",
+    
     javaCore,
     javaJdbc,
     javaEbean

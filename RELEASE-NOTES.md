@@ -1,6 +1,11 @@
 play-module-plommon
 ===================
 
+0.3.0-SNAPSHOT - 2013-09-10
+---------------------------
+- New package `plommon.bo`.
+
+
 0.2.1-SNAPSHOT - 2013-09-01
 ---------------------------
 - New method `JsonUtils.fromJsonString(String)` and minor enhancement in method `JsonUtils.fromJsonString(String, Class)`.
