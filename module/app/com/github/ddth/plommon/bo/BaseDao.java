@@ -41,8 +41,15 @@ public class BaseDao {
     protected static JdbcTemplate jdbcTemplate(String datasourceName) {
         JdbcTemplate jdbcTemplate = jdbcTemplates.get(datasourceName);
         if (jdbcTemplate == null) {
-            jdbcTemplate = new JdbcTemplate(DB.getDataSource(datasourceName));
-            jdbcTemplates.putIfAbsent(datasourceName, jdbcTemplate);
+            synchronized (jdbcTemplates) {
+                // test again to make sure no other thread has created the
+                // object
+                jdbcTemplate = jdbcTemplates.get(datasourceName);
+                if (jdbcTemplate == null) {
+                    jdbcTemplate = new JdbcTemplate(DB.getDataSource(datasourceName));
+                    jdbcTemplates.putIfAbsent(datasourceName, jdbcTemplate);
+                }
+            }
         }
         return jdbcTemplate;
     }
