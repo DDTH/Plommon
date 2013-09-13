@@ -24,6 +24,14 @@ public class BaseDao {
     private static ConcurrentMap<String, JdbcTemplate> jdbcTemplates = new ConcurrentHashMap<String, JdbcTemplate>();
 
     /**
+     * This method should be called once within
+     * {@code Global.onStart(Application)} method.
+     */
+    public static void init() {
+        jdbcTemplates.clear();
+    }
+
+    /**
      * Gets {@link JdbcTemplate} instance for the "default" datasource.
      * 
      * @return
