@@ -14,7 +14,8 @@ object ApplicationBuild extends Build {
     
     javaCore,
     javaJdbc,
-    javaEbean
+    javaEbean,
+    cache
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
