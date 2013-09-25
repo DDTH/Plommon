@@ -1,6 +1,11 @@
 play-module-plommon
 ===================
 
+0.3.1-SNAPSHOT - 2013-09-26
+---------------------------
+- Upgrade to Playframework v2.2.0
+- New method `plommon.bo.BaseBo.isDirty()` and `plommon.bo.BaseBo.hashCode()`.
+
 0.3.0-SNAPSHOT - 2013-09-10
 ---------------------------
 - New package `plommon.bo`.

@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.ddth.plommon.utils.DPathUtils;
 import com.github.ddth.plommon.utils.JsonUtils;
 
@@ -19,6 +20,16 @@ public class BaseBo {
 
     @JsonProperty
     private Map<String, Object> attributes = new HashMap<String, Object>();
+    private boolean isDirty = false;
+
+    /**
+     * Has the BO been changed?
+     * 
+     * @return
+     */
+    public boolean isDirty() {
+        return isDirty;
+    }
 
     /**
      * Gets a BO's attribute.
@@ -53,6 +64,7 @@ public class BaseBo {
      */
     protected BaseBo setAttribute(String dPath, Object value) {
         DPathUtils.setValue(attributes, dPath, value);
+        isDirty = true;
         return this;
     }
 
@@ -67,6 +79,7 @@ public class BaseBo {
         if (data != null) {
             attributes.putAll(data);
         }
+        isDirty = true;
         return this;
     }
 
@@ -94,6 +107,7 @@ public class BaseBo {
         if (other != null) {
             this.attributes = other.attributes;
         }
+        isDirty = true;
         return this;
     }
 
@@ -116,7 +130,17 @@ public class BaseBo {
         }
         BaseBo other = (BaseBo) obj;
         EqualsBuilder eb = new EqualsBuilder();
-        eb.append(attributes, other.attributes);
+        eb.append(attributes, other.attributes).append(isDirty(), other.isDirty);
         return eb.isEquals();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        HashCodeBuilder hcb = new HashCodeBuilder(19, 81);
+        hcb.append(isDirty).append(attributes);
+        return hcb.hashCode();
     }
 }
