@@ -5,7 +5,7 @@ import play.Project._
 object ApplicationBuild extends Build {
 
   val appName         = "play-module-plommon"
-  val appVersion      = "0.3.1-SNAPSHOT"
+  val appVersion      = "0.3.2-SNAPSHOT"
 
   val appDependencies = Seq(
     // Add your project dependencies here,

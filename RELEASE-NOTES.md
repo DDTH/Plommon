@@ -1,10 +1,17 @@
 play-module-plommon
 ===================
 
+0.3.2-SNAPSHOT - 2013-09-27
+---------------------------
+- New class `plommon.bo.BaseMysqlDao`.
+- New helper methods in class `plommon.bo.BaseDao` to execute common SQL statements (`INSERT`, `UPDATE`, `DELETE`, `SELECT`).
+
+
 0.3.1-SNAPSHOT - 2013-09-26
 ---------------------------
-- Upgrade to Playframework v2.2.0
+- Upgrade to Playframework v2.2.0.
 - New method `plommon.bo.BaseBo.isDirty()` and `plommon.bo.BaseBo.hashCode()`.
+
 
 0.3.0-SNAPSHOT - 2013-09-10
 ---------------------------

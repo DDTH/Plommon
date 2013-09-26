@@ -20,12 +20,14 @@ public class BaseBo {
 
     @JsonProperty
     private Map<String, Object> attributes = new HashMap<String, Object>();
-    private boolean isDirty = false;
+
+    private boolean isDirty;
 
     /**
      * Has the BO been changed?
      * 
      * @return
+     * @since 0.3.1
      */
     public boolean isDirty() {
         return isDirty;
@@ -136,6 +138,8 @@ public class BaseBo {
 
     /**
      * {@inheritDoc}
+     * 
+     * @since 0.3.1
      */
     @Override
     public int hashCode() {

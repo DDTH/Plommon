@@ -15,3 +15,9 @@ class BaseDAO
 Base class for application DAOs.
 
 Note: `BaseDAO` utilizes Spring's `JdbcTemplate` to query data.
+
+
+class BaseMysqlDao (extends BaseBo)
+-----------------------------------
+
+MySQL-specific DAO.
