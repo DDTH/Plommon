@@ -21,8 +21,6 @@ public class BaseBo {
     @JsonProperty
     private Map<String, Object> attributes = new HashMap<String, Object>();
 
-    private boolean isDirty;
-
     /**
      * Has the BO been changed?
      * 
@@ -30,7 +28,22 @@ public class BaseBo {
      * @since 0.3.1
      */
     public boolean isDirty() {
-        return isDirty;
+        Boolean result = getAttribute("__dirty__", Boolean.class);
+        return result != null ? result.booleanValue() : null;
+    }
+
+    /**
+     * Marks that the BO is dirty.
+     */
+    protected void markDirty() {
+        DPathUtils.setValue(attributes, "__dirty__", Boolean.TRUE);
+    }
+
+    /**
+     * Marks that the BO is no longer dirty.
+     */
+    public void markClean() {
+        DPathUtils.setValue(attributes, "__dirty__", Boolean.FALSE);
     }
 
     /**
@@ -66,7 +79,7 @@ public class BaseBo {
      */
     protected BaseBo setAttribute(String dPath, Object value) {
         DPathUtils.setValue(attributes, dPath, value);
-        isDirty = true;
+        markDirty();
         return this;
     }
 
@@ -81,7 +94,7 @@ public class BaseBo {
         if (data != null) {
             attributes.putAll(data);
         }
-        isDirty = true;
+        markClean();
         return this;
     }
 
@@ -109,7 +122,7 @@ public class BaseBo {
         if (other != null) {
             this.attributes = other.attributes;
         }
-        isDirty = true;
+        markClean();
         return this;
     }
 
@@ -132,7 +145,7 @@ public class BaseBo {
         }
         BaseBo other = (BaseBo) obj;
         EqualsBuilder eb = new EqualsBuilder();
-        eb.append(attributes, other.attributes).append(isDirty(), other.isDirty);
+        eb.append(attributes, other.attributes);
         return eb.isEquals();
     }
 
@@ -144,7 +157,7 @@ public class BaseBo {
     @Override
     public int hashCode() {
         HashCodeBuilder hcb = new HashCodeBuilder(19, 81);
-        hcb.append(isDirty).append(attributes);
+        hcb.append(attributes);
         return hcb.hashCode();
     }
 }
