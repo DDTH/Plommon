@@ -34,16 +34,22 @@ public class BaseBo {
 
     /**
      * Marks that the BO is dirty.
+     * 
+     * @return
      */
-    protected void markDirty() {
+    protected BaseBo markDirty() {
         DPathUtils.setValue(attributes, "__dirty__", Boolean.TRUE);
+        return this;
     }
 
     /**
      * Marks that the BO is no longer dirty.
+     * 
+     * @return
      */
-    public void markClean() {
+    public BaseBo markClean() {
         DPathUtils.setValue(attributes, "__dirty__", Boolean.FALSE);
+        return this;
     }
 
     /**
