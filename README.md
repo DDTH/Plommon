@@ -11,9 +11,9 @@ Project home:
 Release-notes
 -------------
 
-Latest stable release: v0.1.0.
+Latest stable release: v0.3.2.
 
-Latest SNAPSHOT release: v0.3.2-SNAPSHOT.
+Latest SNAPSHOT release: v0.3.3-SNAPSHOT.
 
 See [RELEASE-NOTES.md](RELEASE-NOTES.md).
 

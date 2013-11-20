@@ -1,6 +1,11 @@
 play-module-plommon
 ===================
 
+0.3.3-SNAPSHOT - 2013-11-20
+---------------------------
+- New class `plommon.utils.HashUtils`.
+
+
 0.3.2-SNAPSHOT - 2013-09-27
 ---------------------------
 - New class `plommon.bo.BaseMysqlDao`.

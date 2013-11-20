@@ -2,7 +2,7 @@ Plommon - com.github.ddth.plommon.utils
 =======================================
 
 DPathUtils
-------------
+----------
 
 Utility to access data from a hierarchy structure.
 
@@ -72,8 +72,14 @@ Long age2 = DPathUtils.getValue(company, "employees.[1].age", Long.class);
 ```
 
 
+HashUtils
+---------
+
+Utility to access data from a hierarchy structure.
+
+
 JsonUtils
------------
+---------
 
 Many times you just want to serialize your Java object to JSON-string and vice-versa, without touching any `JsonNode` object. This utility class provides methods to do just that.
 

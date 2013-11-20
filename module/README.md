@@ -10,7 +10,16 @@ Project home:
 
 See [../README.md](../README.md) for documentation.
 
+
+BO
+==
+BO/DAO library.
+
+* See: [com.github.plommon.bo](app/com/github/ddth/plommon/bo/README.md)
+
+
 Utilities
 =========
+Some utility classes.
 
-* [com.github.plommon.utils](app/com/github/ddth/plommon/utils/README.md)
+* See: [com.github.plommon.utils](app/com/github/ddth/plommon/utils/README.md)
