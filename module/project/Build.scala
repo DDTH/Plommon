@@ -11,7 +11,7 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     "com.google.guava" % "guava" % "15.0",
     "org.springframework" % "spring-jdbc" % "3.2.4.RELEASE",
-    
+    "commons-pool" % "commons-pool" % "1.6",
     javaCore,
     javaJdbc,
     javaEbean,
