@@ -1,6 +1,11 @@
 play-module-plommon
 ===================
 
+0.3.3 - 2013-11-21
+---------------------------
+- Stable release: version 0.3.3.
+
+
 0.3.3-SNAPSHOT - 2013-11-20
 ---------------------------
 - New class `plommon.utils.HashUtils`.

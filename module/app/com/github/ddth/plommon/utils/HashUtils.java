@@ -88,46 +88,46 @@ public class HashUtils {
     }
 
     /**
-     * Maps an object to a slot, using linear hash method.
+     * Maps an object to a bucket, using linear hash method.
      * 
      * This method uses a fast non-cryptographic-strength hash function to
      * calculate object's hash value.
      * 
      * @param object
-     * @param numSlots
+     * @param numBuckets
      * @return the slot index (0 to numSlots-1)
      */
-    public static long linearHashingMap(Object object, int numSlots) {
-        if (numSlots < 1) {
+    public static long linearHashingMap(Object object, int numBuckets) {
+        if (numBuckets < 1) {
             String msg = "Number of slots must be equal or larger than 1!";
             throw new IllegalArgumentException(msg);
         }
-        if (numSlots == 1 || object == null) {
+        if (numBuckets == 1 || object == null) {
             return 0;
         }
-        return Math.abs(fastHashValue(object) % (long) numSlots);
+        return Math.abs(fastHashValue(object) % (long) numBuckets);
     }
 
     /**
-     * Maps an object to a slot, using consistent hash method.
+     * Maps an object to a bucket, using consistent hash method.
      * 
      * This method uses a fast non-cryptographic-strength hash function to
      * calculate object's hash value.
      * 
      * @param object
-     * @param numSlots
+     * @param numBucket
      * @return the slot index (0 to numSlots-1)
      */
-    public static long consistentHashingMap(Object object, int numSlots) {
-        if (numSlots < 1) {
+    public static long consistentHashingMap(Object object, int numBucket) {
+        if (numBucket < 1) {
             String msg = "Number of slots must be equal or larger than 1!";
             throw new IllegalArgumentException(msg);
         }
-        if (numSlots == 1 || object == null) {
+        if (numBucket == 1 || object == null) {
             return 0;
         }
         long hashValue = fastHashValue(object);
-        return Hashing.consistentHash(hashValue, numSlots);
+        return Hashing.consistentHash(hashValue, numBucket);
     }
 
     /**

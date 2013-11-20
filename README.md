@@ -11,7 +11,7 @@ Project home:
 Release-notes
 -------------
 
-Latest stable release: v0.3.2.
+Latest stable release: v0.3.3.
 
 Latest SNAPSHOT release: v0.3.3-SNAPSHOT.
 
@@ -59,10 +59,19 @@ val appDependencies = Seq(
 ```
 
 
-Utilities
-=========
+BO
+--
+BO/DAO library.
 
-* [com.github.plommon.utils](module/app/com/github/ddth/plommon/utils/README.md)
+* See: [com.github.ddth.plommon.bo](module/app/com/github/ddth/plommon/bo/README.md)
+
+
+Utilities
+---------
+Some utility classes.
+
+* See: [com.github.ddth.plommon.utils](module/app/com/github/ddth/plommon/utils/README.md)
+
 
 License
 -------

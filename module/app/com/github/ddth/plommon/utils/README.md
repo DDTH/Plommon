@@ -75,7 +75,29 @@ Long age2 = DPathUtils.getValue(company, "employees.[1].age", Long.class);
 HashUtils
 ---------
 
-Utility to access data from a hierarchy structure.
+Helper class to calculate hash values.
+
+* fash hashing function.
+* linear hashing maps an object to a bucket (object -> [0, numBuckets)).
+* consistent hashing map an object to a bucket (object -> [0, numBuckets)).
+* CRC32, MD5, SHA1, SHA256, SHA512 hashing functions.
+
+
+IdGenerator
+-----------
+
+A Java implementation of Twitter Snowflake algorithm to generate IDs.
+
+Sample usage:
+
+```java
+IdGenerator idGen = IdGenerator.getInstance(IdGenerator.getMacAddr());
+
+long id64 = idGen.generateId64();
+
+String id128Hex = idGen.generateId128Hex();
+...
+```
 
 
 JsonUtils
@@ -133,6 +155,7 @@ SessionUtils.setSession("user", user, 300);
 Object obj = SessionUtils.getSession("user");
 . . .
 ```
+
 
 UnsignedUtils
 -------------
