@@ -8,14 +8,16 @@ By Thanh Ba Nguyen (btnguyen2k (at) gmail.com)
 Project home:
 [https://github.com/DDTH/Plommon](https://github.com/DDTH/Plommon)
 
+
 Release-notes
 -------------
 
 Latest stable release: v0.3.3.
 
-Latest SNAPSHOT release: v0.3.3-SNAPSHOT.
+Latest SNAPSHOT release: v0.4.0-SNAPSHOT.
 
 See [RELEASE-NOTES.md](RELEASE-NOTES.md).
+
 
 Installation
 ------------
