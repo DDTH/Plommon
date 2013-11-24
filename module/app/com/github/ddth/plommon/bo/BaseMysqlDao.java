@@ -88,6 +88,9 @@ public class BaseMysqlDao extends BaseDao {
         return deleteEx("QUICK", tableName, whereColumns, whereValues);
     }
 
+    /*
+     * @since 0.4.1 add support of {@link ParamExpression}
+     */
     private static int deleteEx(String ex, String tableName, String[] whereColumns,
             Object[] whereValues) {
         final String SQL_TEMPLATE_FULL_IGNORE = "DELETE IGNORE FROM {0} WHERE {1}";
@@ -106,8 +109,17 @@ public class BaseMysqlDao extends BaseDao {
         final List<String> WHERE_CLAUSE = new ArrayList<String>();
         if (whereColumns != null && whereColumns.length > 0 && whereValues != null
                 && whereValues.length > 0) {
+            if (whereColumns.length != whereValues.length) {
+                throw new IllegalArgumentException(
+                        "Number of whereColumns must be equal to number of whereValues.");
+            }
             for (int i = 0; i < whereColumns.length; i++) {
-                WHERE_CLAUSE.add("(" + whereColumns[i] + "=?)");
+                if (whereValues[i] instanceof ParamExpression) {
+                    WHERE_CLAUSE.add("(" + whereColumns[i] + "="
+                            + ((ParamExpression) whereValues[i]).getExpression() + ")");
+                } else {
+                    WHERE_CLAUSE.add("(" + whereColumns[i] + "=?)");
+                }
             }
         }
 
@@ -158,6 +170,10 @@ public class BaseMysqlDao extends BaseDao {
     }
 
     private static int insertEx(String ex, String tableName, String[] columnNames, Object[] values) {
+        if (columnNames.length != values.length) {
+            throw new IllegalArgumentException(
+                    "Number of columns must be equal to number of values.");
+        }
         final String SQL_TEMPLATE_DELAYED = "INSERT DELAYED INTO {0} ({1}) VALUES ({2})";
         final String SQL_TEMPLATE_IGNORE = "INSERT IGNORE INTO {0} ({1}) VALUES ({2})";
         final String SQL_TEMPLATE_LOW_PRIORITY = "INSERT LOW_PRIORITY INTO {0} ({1}) VALUES ({2})";
@@ -165,7 +181,17 @@ public class BaseMysqlDao extends BaseDao {
         final String SQL_TEMPLATE = "DELAYED".equalsIgnoreCase(ex) ? SQL_TEMPLATE_DELAYED
                 : ("IGNORE".equalsIgnoreCase(ex) ? SQL_TEMPLATE_IGNORE : SQL_TEMPLATE_LOW_PRIORITY);
         final String SQL_PART_COLUMNS = StringUtils.join(columnNames, ',');
-        final String SQL_PART_VALUES = StringUtils.repeat("?", ",", columnNames.length);
+        final StringBuilder SQL_PART_VALUES = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] instanceof ParamExpression) {
+                SQL_PART_VALUES.append(((ParamExpression) values[i]).getExpression());
+            } else {
+                SQL_PART_VALUES.append('?');
+            }
+            if (i < values.length - 1) {
+                SQL_PART_VALUES.append(',');
+            }
+        }
         final String SQL = MessageFormat.format(SQL_TEMPLATE, tableName, SQL_PART_COLUMNS,
                 SQL_PART_VALUES);
         return insert(SQL, values);
