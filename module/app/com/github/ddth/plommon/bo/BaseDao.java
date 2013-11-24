@@ -78,11 +78,20 @@ public class BaseDao {
      * @param whereValues
      * @return number of deleted rows
      * @since 0.3.2
+     * @since 0.4.1 add support of {@link ParamExpression}
      */
     protected static int delete(String sql, Object[] whereValues) {
         JdbcTemplate jdbcTemplate = jdbcTemplate();
-        return whereValues != null && whereValues.length > 0 ? jdbcTemplate
-                .update(sql, whereValues) : jdbcTemplate.update(sql);
+        List<Object> params = new ArrayList<Object>();
+        if (whereValues != null) {
+            for (Object val : whereValues) {
+                if (!(val instanceof ParamExpression)) {
+                    params.add(val);
+                }
+            }
+        }
+        return params.size() > 0 ? jdbcTemplate.update(sql, params.toArray()) : jdbcTemplate
+                .update(sql);
     }
 
     /**
@@ -106,6 +115,7 @@ public class BaseDao {
      *            supply {@code null} to ignore WHERE clause
      * @return number of deleted rows
      * @since 0.3.2
+     * @since 0.4.1 add support of {@link ParamExpression}
      */
     protected static int delete(String tableName, String[] whereColumns, Object[] whereValues) {
         final String SQL_TEMPLATE_FULL = "DELETE FROM {0} WHERE {1}";
@@ -114,8 +124,17 @@ public class BaseDao {
         final List<String> WHERE_CLAUSE = new ArrayList<String>();
         if (whereColumns != null && whereColumns.length > 0 && whereValues != null
                 && whereValues.length > 0) {
+            if (whereColumns.length != whereValues.length) {
+                throw new IllegalArgumentException(
+                        "Number of whereColumns must be equal to number of whereValues.");
+            }
             for (int i = 0; i < whereColumns.length; i++) {
-                WHERE_CLAUSE.add("(" + whereColumns[i] + "=?)");
+                if (whereValues[i] instanceof ParamExpression) {
+                    WHERE_CLAUSE.add("(" + whereColumns[i] + "="
+                            + ((ParamExpression) whereValues[i]).getExpression() + ")");
+                } else {
+                    WHERE_CLAUSE.add("(" + whereColumns[i] + "=?)");
+                }
             }
         }
 
@@ -136,11 +155,20 @@ public class BaseDao {
      * @param values
      * @return number of inserted rows
      * @since 0.3.2
+     * @since 0.4.1 add support of {@link ParamExpression}
      */
     protected static int insert(String sql, Object[] values) {
         JdbcTemplate jdbcTemplate = jdbcTemplate();
-        return values != null && values.length > 0 ? jdbcTemplate.update(sql, values)
-                : jdbcTemplate.update(sql);
+        List<Object> params = new ArrayList<Object>();
+        if (values != null) {
+            for (Object val : values) {
+                if (!(val instanceof ParamExpression)) {
+                    params.add(val);
+                }
+            }
+        }
+        return params.size() > 0 ? jdbcTemplate.update(sql, params.toArray()) : jdbcTemplate
+                .update(sql);
     }
 
     /**
@@ -151,11 +179,26 @@ public class BaseDao {
      * @param values
      * @return number of inserted rows
      * @since 0.3.2
+     * @since 0.4.1 add support of {@link ParamExpression}
      */
     protected static int insert(String tableName, String[] columnNames, Object[] values) {
+        if (columnNames.length != values.length) {
+            throw new IllegalArgumentException(
+                    "Number of columns must be equal to number of values.");
+        }
         final String SQL_TEMPLATE = "INSERT INTO {0} ({1}) VALUES ({2})";
         final String SQL_PART_COLUMNS = StringUtils.join(columnNames, ',');
-        final String SQL_PART_VALUES = StringUtils.repeat("?", ",", columnNames.length);
+        final StringBuilder SQL_PART_VALUES = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] instanceof ParamExpression) {
+                SQL_PART_VALUES.append(((ParamExpression) values[i]).getExpression());
+            } else {
+                SQL_PART_VALUES.append('?');
+            }
+            if (i < values.length - 1) {
+                SQL_PART_VALUES.append(',');
+            }
+        }
         final String SQL = MessageFormat.format(SQL_TEMPLATE, tableName, SQL_PART_COLUMNS,
                 SQL_PART_VALUES);
         return insert(SQL, values);
@@ -168,11 +211,20 @@ public class BaseDao {
      * @param paramValues
      * @return
      * @since 0.3.2
+     * @since 0.4.1 add support of {@link ParamExpression}
      */
     protected static List<Map<String, Object>> select(String sql, Object[] paramValues) {
         JdbcTemplate jdbcTemplate = jdbcTemplate();
-        return paramValues != null && paramValues.length > 0 ? jdbcTemplate.queryForList(sql,
-                paramValues) : jdbcTemplate.queryForList(sql);
+        List<Object> params = new ArrayList<Object>();
+        if (paramValues != null) {
+            for (Object val : paramValues) {
+                if (!(val instanceof ParamExpression)) {
+                    params.add(val);
+                }
+            }
+        }
+        return params.size() > 0 ? jdbcTemplate.queryForList(sql, params.toArray()) : jdbcTemplate
+                .queryForList(sql);
     }
 
     /**
@@ -182,11 +234,20 @@ public class BaseDao {
      * @param paramValues
      * @return number of affected rows
      * @since 0.3.2
+     * @since 0.4.1 add support of {@link ParamExpression}
      */
     protected static int update(String sql, Object[] paramValues) {
         JdbcTemplate jdbcTemplate = jdbcTemplate();
-        return paramValues != null && paramValues.length > 0 ? jdbcTemplate
-                .update(sql, paramValues) : jdbcTemplate.update(sql);
+        List<Object> params = new ArrayList<Object>();
+        if (paramValues != null) {
+            for (Object val : paramValues) {
+                if (!(val instanceof ParamExpression)) {
+                    params.add(val);
+                }
+            }
+        }
+        return params.size() > 0 ? jdbcTemplate.update(sql, params.toArray()) : jdbcTemplate
+                .update(sql);
     }
 
     /**
@@ -214,6 +275,7 @@ public class BaseDao {
      *            supply {@code null} to ignore WHERE clause
      * @return number of affected rows
      * @since 0.3.2
+     * @since 0.4.1 add support of {@link ParamExpression}
      */
     protected static int update(String tableName, String[] columnNames, Object[] values,
             String[] whereColumns, Object[] whereValues) {
@@ -228,8 +290,17 @@ public class BaseDao {
         final List<String> WHERE_CLAUSE = new ArrayList<String>();
         if (whereColumns != null && whereColumns.length > 0 && whereValues != null
                 && whereValues.length > 0) {
+            if (whereColumns.length != whereValues.length) {
+                throw new IllegalArgumentException(
+                        "Number of whereColumns must be equal to number of whereValues.");
+            }
             for (int i = 0; i < whereColumns.length; i++) {
-                WHERE_CLAUSE.add("(" + whereColumns[i] + "=?)");
+                if (whereValues[i] instanceof ParamExpression) {
+                    WHERE_CLAUSE.add("(" + whereColumns[i] + "="
+                            + ((ParamExpression) whereValues[i]).getExpression() + ")");
+                } else {
+                    WHERE_CLAUSE.add("(" + whereColumns[i] + "=?)");
+                }
             }
         }
 

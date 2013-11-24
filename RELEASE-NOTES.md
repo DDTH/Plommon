@@ -1,6 +1,11 @@
 play-module-plommon
 ===================
 
+0.4.1-SNAPSHOT - 2013-11-24
+---------------------------
+- New class `plommon.bo.ParamExpression`.
+
+
 0.4.0-SNAPSHOT - 2013-11-21
 ---------------------------
 - Removed classes `DPathUtils`, `HashUtils`, `IdGenerator`, `JsonUtils`, `UnsignedUtils` from package `plommon.utils`.

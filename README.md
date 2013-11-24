@@ -14,7 +14,7 @@ Release-notes
 
 Latest stable release: v0.3.3.
 
-Latest SNAPSHOT release: v0.4.0-SNAPSHOT.
+Latest SNAPSHOT release: v0.4.1-SNAPSHOT.
 
 See [RELEASE-NOTES.md](RELEASE-NOTES.md).
 
