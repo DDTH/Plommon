@@ -80,6 +80,16 @@ public class SessionUtils {
     }
 
     /**
+     * Removes a session item.
+     * 
+     * @param key
+     * @since 0.4.2
+     */
+    public static void removeSession(String key) {
+        Controller.session().remove(key);
+    }
+
+    /**
      * Sets a session item.
      * 
      * @param key

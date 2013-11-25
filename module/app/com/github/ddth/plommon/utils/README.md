@@ -34,4 +34,8 @@ SessionUtils.setSession("user", user, 300);
 
 Object obj = SessionUtils.getSession("user");
 . . .
+
+//remove a session entry
+SessionUtils.removeSession("user");
+...
 ```

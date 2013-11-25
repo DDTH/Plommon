@@ -1,6 +1,11 @@
 play-module-plommon
 ===================
 
+0.4.2-SNAPSHOT - 2013-11-25
+---------------------------
+- New method `plommon.utils.SessionUtils.removeSession(String)`.
+
+
 0.4.1-SNAPSHOT - 2013-11-24
 ---------------------------
 - New class `plommon.bo.ParamExpression`.
