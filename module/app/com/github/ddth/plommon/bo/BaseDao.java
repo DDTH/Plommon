@@ -228,6 +228,38 @@ public class BaseDao {
     }
 
     /**
+     * Executes a simple SELECT statement.
+     * 
+     * @param table
+     * @param columns
+     * @param whereClause
+     * @param paramValues
+     * @return
+     * @since 0.4.3
+     */
+    protected static List<Map<String, Object>> select(String table, String[][] columns,
+            String whereClause, Object[] paramValues) {
+        StringBuilder sql = new StringBuilder("SELECT ");
+
+        for (String[] colDef : columns) {
+            sql.append(colDef[0]);
+            if (colDef.length > 1) {
+                sql.append(" AS ").append(colDef[1]);
+            }
+            sql.append(",");
+        }
+        sql.deleteCharAt(sql.length() - 1);
+
+        sql.append(" FROM ").append(table);
+
+        if (!StringUtils.isBlank(whereClause)) {
+            sql.append(" WHERE ").append(whereClause);
+        }
+
+        return select(sql.toString(), paramValues);
+    }
+
+    /**
      * Executes a UPDATE statement.
      * 
      * @param sql

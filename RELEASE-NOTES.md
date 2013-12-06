@@ -1,6 +1,11 @@
 play-module-plommon
 ===================
 
+0.4.3-SNAPSHOT - 2013-12-06
+---------------------------
+- New methods: `plommon.bo.BaseDao.select(String, String[][], String, Object[])`, `plommon.bo.BaseMysqlDao.select(String, String[][], String, Object[], int, int)`.
+
+
 0.4.2-SNAPSHOT - 2013-11-25
 ---------------------------
 - New method `plommon.utils.SessionUtils.removeSession(String)`.

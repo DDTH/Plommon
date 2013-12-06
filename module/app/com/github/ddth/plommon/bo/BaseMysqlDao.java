@@ -3,6 +3,7 @@ package com.github.ddth.plommon.bo;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -195,6 +196,42 @@ public class BaseMysqlDao extends BaseDao {
         final String SQL = MessageFormat.format(SQL_TEMPLATE, tableName, SQL_PART_COLUMNS,
                 SQL_PART_VALUES);
         return insert(SQL, values);
+    }
+
+    /**
+     * Executes a simple SELECT statement with LIMIT.
+     * 
+     * @param table
+     * @param columns
+     * @param whereClause
+     * @param paramValues
+     * @param limitOffset
+     * @param limitRowCount
+     * @return
+     * @since 0.4.3
+     */
+    protected static List<Map<String, Object>> select(String table, String[][] columns,
+            String whereClause, Object[] paramValues, int limitOffset, int limitRowCount) {
+        StringBuilder sql = new StringBuilder("SELECT ");
+
+        for (String[] colDef : columns) {
+            sql.append(colDef[0]);
+            if (colDef.length > 1) {
+                sql.append(" AS ").append(colDef[1]);
+            }
+            sql.append(",");
+        }
+        sql.deleteCharAt(sql.length() - 1);
+
+        sql.append(" FROM ").append(table);
+
+        if (!StringUtils.isBlank(whereClause)) {
+            sql.append(" WHERE ").append(whereClause);
+        }
+
+        sql.append(" LIMIT ").append(limitOffset).append(",").append(limitRowCount);
+
+        return select(sql.toString(), paramValues);
     }
 
     /**
