@@ -1,6 +1,11 @@
 play-module-plommon
 ===================
 
+0.4.3 - 2013-12-07
+------------------
+- Stabie release: version 0.4.3
+
+
 0.4.3-SNAPSHOT - 2013-12-06
 ---------------------------
 - New methods: `plommon.bo.BaseDao.select(String, String[][], String, Object[])`, `plommon.bo.BaseMysqlDao.select(String, String[][], String, Object[], int, int)`.
