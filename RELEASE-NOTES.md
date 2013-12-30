@@ -1,9 +1,14 @@
 play-module-plommon
 ===================
 
+0.4.4 - 2013-12-30
+------------------
+- Bug fixes
+
+
 0.4.3 - 2013-12-07
 ------------------
-- Stabie release: version 0.4.3
+- Stable release: version 0.4.3
 
 
 0.4.3-SNAPSHOT - 2013-12-06

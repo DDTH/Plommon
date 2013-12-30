@@ -314,9 +314,18 @@ public class BaseDao {
         final String SQL_TEMPLATE_FULL = "UPDATE {0} SET {1} WHERE {2}";
         final String SQL_TEMPLATE = "UPDATE {0} SET {1}";
 
+        if (columnNames.length != values.length) {
+            throw new IllegalArgumentException(
+                    "Number of columns must be equal to number of values.");
+        }
         final List<String> UPDATE_CLAUSE = new ArrayList<String>();
         for (int i = 0; i < columnNames.length; i++) {
-            UPDATE_CLAUSE.add(columnNames[i] + "=?");
+            if (values[i] instanceof ParamExpression) {
+                UPDATE_CLAUSE.add(columnNames[i] + "="
+                        + ((ParamExpression) values[i]).getExpression());
+            } else {
+                UPDATE_CLAUSE.add(columnNames[i] + "=?");
+            }
         }
 
         final List<String> WHERE_CLAUSE = new ArrayList<String>();
