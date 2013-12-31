@@ -12,9 +12,9 @@ Project home:
 Release-notes
 -------------
 
-Latest stable release: v0.4.4.
+Latest stable release: v0.4.5.
 
-Latest SNAPSHOT release: v0.4.4-SNAPSHOT.
+Latest SNAPSHOT release: v0.4.5-SNAPSHOT.
 
 See [RELEASE-NOTES.md](RELEASE-NOTES.md).
 
@@ -59,6 +59,13 @@ val appDependencies = Seq(
   javaJdbc
 )
 ```
+
+
+Activate Plommon In Play Applications
+-------------------------------------
+Add the following line in `play.plugins` file:
+
+`1000:com.github.ddth.plommon.Activator`
 
 
 BO

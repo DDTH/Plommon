@@ -1,6 +1,11 @@
 play-module-plommon
 ===================
 
+0.4.5 - 2013-12-31
+------------------
+- New class: `plommon.Activator`
+
+
 0.4.4 - 2013-12-30
 ------------------
 - Bug fixes
