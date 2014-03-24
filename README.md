@@ -12,43 +12,13 @@ Project home:
 Release-notes
 -------------
 
-Latest stable release: v0.4.5.
-
-Latest SNAPSHOT release: v0.4.5-SNAPSHOT.
-
-See [RELEASE-NOTES.md](RELEASE-NOTES.md).
+Latest stable release: v0.4.6. See [RELEASE-NOTES.md](RELEASE-NOTES.md).
 
 
 Installation
 ------------
 
-##### SNAPSHOT Releases #####
-
-* add `"com.github.ddth" %% "play-module-plommon" % "<version>-SNAPSHOT"` to your dependencies (`project/Build.scala`):
-
-Example:
-```scala
-val appDependencies = Seq(
-  // Add your project dependencies here,
-  "com.github.ddth" %% "play-module-plommon" % "0.1.0-SNAPSHOT",
-  javaCore,
-  javaJdbc
-)
-```
-
-* add `Sonatype snapshots repository` to resolver list.
-
-Example:
-```scala
-val main = play.Project(appName, appVersion, appDependencies).settings(
-  // Add your own project settings here
-  resolvers += "Sonatype snapshots repository" at "http://oss.sonatype.org/content/repositories/snapshots/"
-)
-```
-
-##### Stable Releases #####
-
-* add `"com.github.ddth" %% "play-module-plommon" % "<version>"` to your dependencies (`project/Build.scala`):
+* add `"com.github.ddth" %% "play-module-plommon" % "<version>"` to your dependencies (e.g. `project/Build.scala`):
 
 Example:
 ```scala
@@ -85,6 +55,6 @@ Some utility classes.
 License
 -------
 
-Distributed under the [MIT License](http://opensource.org/licenses/mit-license.php). Copyright (c) 2013 Thanh Ba Nguyen (aka btnguyen2k).
+Distributed under the [MIT License](http://opensource.org/licenses/mit-license.php). Copyright (c) 2013-2014 Thanh Ba Nguyen (aka btnguyen2k).
 
 Third party libraries are distributed under their own license(s).

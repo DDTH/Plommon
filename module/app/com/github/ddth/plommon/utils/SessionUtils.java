@@ -6,7 +6,7 @@ import java.util.Map;
 import play.mvc.Controller;
 
 import com.github.ddth.commons.utils.DPathUtils;
-import com.github.ddth.commons.utils.JsonUtils;
+import com.github.ddth.commons.utils.SerializationUtils;
 
 /**
  * Session utilities with enhanced functionality.
@@ -58,7 +58,7 @@ public class SessionUtils {
             return null;
         }
         try {
-            Object obj = JsonUtils.fromJsonString(sValue);
+            Object obj = SerializationUtils.fromJsonString(sValue);
             if (!(obj instanceof Map<?, ?>)) {
                 return obj;
             }
@@ -113,6 +113,6 @@ public class SessionUtils {
         if (ttl > 0) {
             sEntry.put(KEY_EXPIRY, System.currentTimeMillis() + ttl * 1000);
         }
-        Controller.session(key, JsonUtils.toJsonString(sEntry));
+        Controller.session(key, SerializationUtils.toJsonString(sEntry));
     }
 }

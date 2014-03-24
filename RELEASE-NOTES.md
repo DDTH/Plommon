@@ -1,6 +1,12 @@
 play-module-plommon
 ===================
 
+0.4.6 - 2014-03-24
+------------------
+- New class: `plommon.utils.PlayAppUtils`.
+- Dependencies reviewed, upgraded and cleaned up.
+
+
 0.4.5 - 2013-12-31
 ------------------
 - New class: `plommon.Activator`

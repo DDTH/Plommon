@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.ddth.commons.utils.DPathUtils;
-import com.github.ddth.commons.utils.JsonUtils;
+import com.github.ddth.commons.utils.SerializationUtils;
 
 /**
  * Base class for application BOs.
@@ -124,7 +124,7 @@ public class BaseBo {
      * @return
      */
     synchronized public BaseBo fromJson(String jsonString) {
-        BaseBo other = JsonUtils.fromJsonString(jsonString, BaseBo.class);
+        BaseBo other = SerializationUtils.fromJsonString(jsonString, BaseBo.class);
         if (other != null) {
             // this.attributes = other.attributes;
             other.markClean();
@@ -140,7 +140,7 @@ public class BaseBo {
      * @return
      */
     synchronized public String toJson() {
-        return JsonUtils.toJsonString(this);
+        return SerializationUtils.toJsonString(this);
     }
 
     /**

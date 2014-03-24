@@ -1,6 +1,14 @@
 Plommon - com.github.ddth.plommon.utils
 =======================================
 
+PlayAppUtils
+------------
+
+Play Application Uitlities.
+
+* Request URL & query string helper methods.
+* `application.conf` helper methods.
+
 
 SessionUtils
 --------------
