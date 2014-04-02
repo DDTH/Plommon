@@ -1,6 +1,12 @@
 Plommon - com.github.ddth.plommon.utils
 =======================================
 
+AkkUtils
+--------
+
+Akka helper class to schedule jobs.
+
+
 PlayAppUtils
 ------------
 

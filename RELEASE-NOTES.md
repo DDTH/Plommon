@@ -1,6 +1,11 @@
 play-module-plommon
 ===================
 
+0.4.7 - 2014-04-02
+------------------
+- New class: `plommon.utils.AkkUtils`.
+
+
 0.4.6 - 2014-03-24
 ------------------
 - New class: `plommon.utils.PlayAppUtils`.

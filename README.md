@@ -12,7 +12,7 @@ Project home:
 Release-notes
 -------------
 
-Latest stable release: v0.4.6. See [RELEASE-NOTES.md](RELEASE-NOTES.md).
+Latest stable release: v0.4.7. See [RELEASE-NOTES.md](RELEASE-NOTES.md).
 
 
 Installation
@@ -24,7 +24,7 @@ Example:
 ```scala
 val appDependencies = Seq(
   // Add your project dependencies here,
-  "com.github.ddth" %% "play-module-plommon" % "0.1.0",
+  "com.github.ddth" %% "play-module-plommon" % "0.4.7",
   javaCore,
   javaJdbc
 )
