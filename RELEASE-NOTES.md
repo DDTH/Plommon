@@ -1,6 +1,14 @@
 play-module-plommon
 ===================
 
+0.5.0 - 2014-04-25
+------------------
+- Refactor package `plommon.bo`:
+  - `plommon.bo.jdbc`: for JDBC-based DAOs.
+  - `plommon.bo.nosql`: for NoSQL-based DAOs.
+- Add class to support Cassandra Wide-row column family: `plommon.bo.nosql.engine.cassandra.WideRowJsonCassandraNosqlEngine`
+
+
 0.4.7 - 2014-04-02
 ------------------
 - New class: `plommon.utils.AkkUtils`.

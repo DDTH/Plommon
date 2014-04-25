@@ -1,4 +1,4 @@
-package com.github.ddth.plommon.bo;
+package com.github.ddth.plommon.bo.jdbc;
 
 /**
  * Used to pass a raw expression to a SQL statement.

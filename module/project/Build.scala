@@ -9,9 +9,10 @@ object ApplicationBuild extends Build {
 
   val appDependencies = Seq(
     // Add your project dependencies here,
-    "com.google.guava" % "guava" % "14.0",
-    "org.springframework" % "spring-jdbc" % "3.2.4.RELEASE",
-    "com.github.ddth" % "ddth-commons" % "0.2.0",
+    "com.google.guava"          % "guava"                   % "14.0",
+    "com.datastax.cassandra"    % "cassandra-driver-core"   % "2.0.1",
+    "org.springframework"       % "spring-jdbc"             % "3.2.4.RELEASE",
+    "com.github.ddth"           % "ddth-commons"            % "0.2.1.1",
     javaCore,
     javaJdbc,
     javaEbean,
@@ -19,6 +20,9 @@ object ApplicationBuild extends Build {
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
+    // Force compilation in java 1.6
+    javacOptions in Compile ++= Seq("-source", "1.6", "-target", "1.6"),
+  
     // Add your own project settings here
 	organization := "com.github.ddth",
     organizationName := "DDTH on GitHub",

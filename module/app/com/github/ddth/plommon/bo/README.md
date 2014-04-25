@@ -3,21 +3,35 @@ Plommon - com.github.ddth.plommon.bo
 
 BO/DAO library.
 
-class BaseBo
-------------
-
+package `plommon.bo`
+--------------------
+### class `BaseBo` ###
 Base class for application BOs.
 
-
-class BaseDAO
--------------
-
+### class `BaseDao` ###
 Base class for application DAOs.
 
-Note: `BaseDAO` utilizes Spring's `JdbcTemplate` to query data.
 
+package `plommon.bo.jdbc`
+-------------------------
+### class `BaseJdbcDao` ###
+Base class for JDBC-based DAOs.
 
-class BaseMysqlDao (extends BaseBo)
------------------------------------
+Note: `BaseJdbcDao` utilizes Spring's `JdbcTemplate` to query data.
 
+### class `BaseMysqlDao` extends `BaseJdbcDao` ###
 MySQL-specific DAO.
+
+
+package `plommon.bo.nosql`
+-------------------------
+### class `BaseNosqlDao` ###
+Base class for NoSQL-based DAOs.
+
+### interface `INosqlEngine` ###
+APIs to access the underlying NoSQL storage.
+
+
+package `plommon.bo.nosql.engine`
+---------------------------------
+Implementation of `INosqlEngine`
