@@ -1,8 +1,8 @@
 play-module-plommon
 ===================
 
-0.5.1 - 2014-54-05
-------------------
+0.5.1.1 - 2014-54-05
+--------------------
 - `BaseJdbcDao` and `BaseMysqlDao`: add new helper methods to perform SQL statements on a supplied `Connection`/`JdbcTemplate`.
 
 

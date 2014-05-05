@@ -12,7 +12,7 @@ import play.cache.Cache;
  */
 public abstract class BaseDao {
 
-    protected final static Charset CHARSET = Charset.forName("UTF_8");
+    protected final static Charset CHARSET = Charset.forName("UTF-8");
 
     public final static String DEFAULT_DATASOURCE_NAME = "default";
 

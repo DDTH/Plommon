@@ -12,7 +12,7 @@ import com.github.ddth.plommon.bo.nosql.INosqlEngine;
  */
 public abstract class BaseNosqlEngine implements INosqlEngine {
 
-    protected final static Charset CHARSET = Charset.forName("UTF_8");
+    protected final static Charset CHARSET = Charset.forName("UTF-8");
 
     public BaseNosqlEngine init() {
         return this;
