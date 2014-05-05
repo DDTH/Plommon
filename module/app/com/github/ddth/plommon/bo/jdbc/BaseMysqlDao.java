@@ -1,5 +1,6 @@
 package com.github.ddth.plommon.bo.jdbc;
 
+import java.sql.Connection;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * MySQL-specific DAO.
@@ -56,7 +58,31 @@ public class BaseMysqlDao extends BaseJdbcDao {
      * @since 0.5.0
      */
     protected static int deleteIgnore(String datasourceName, String tableName) {
-        return deleteEx(ExDelete.IGNORE, datasourceName, tableName, null, null);
+        return deleteEx(ExDelete.IGNORE, jdbcTemplate(datasourceName), tableName, null, null);
+    }
+
+    /**
+     * Executes a DELETE IGNORE statement (without WHERE clause).
+     * 
+     * @param conn
+     * @param tableName
+     * @return number of deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteIgnore(Connection conn, String tableName) {
+        return deleteEx(ExDelete.IGNORE, jdbcTemplate(conn), tableName, null, null);
+    }
+
+    /**
+     * Executes a DELETE IGNORE statement (without WHERE clause).
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @return number of deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteIgnore(JdbcTemplate jdbcTemplate, String tableName) {
+        return deleteEx(ExDelete.IGNORE, jdbcTemplate, tableName, null, null);
     }
 
     /**
@@ -87,7 +113,42 @@ public class BaseMysqlDao extends BaseJdbcDao {
      */
     protected static int deleteIgnore(String datasourceName, String tableName,
             String[] whereColumns, Object[] whereValues) {
-        return deleteEx(ExDelete.IGNORE, datasourceName, tableName, whereColumns, whereValues);
+        return deleteEx(ExDelete.IGNORE, jdbcTemplate(datasourceName), tableName, whereColumns,
+                whereValues);
+    }
+
+    /**
+     * Executes a DELETE IGNORE statement.
+     * 
+     * @param conn
+     * @param tableName
+     * @param whereColumns
+     *            supply {@code null} to ignore WHERE clause
+     * @param whereValues
+     *            supply {@code null} to ignore WHERE clause
+     * @return number deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteIgnore(Connection conn, String tableName, String[] whereColumns,
+            Object[] whereValues) {
+        return deleteEx(ExDelete.IGNORE, jdbcTemplate(conn), tableName, whereColumns, whereValues);
+    }
+
+    /**
+     * Executes a DELETE IGNORE statement.
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @param whereColumns
+     *            supply {@code null} to ignore WHERE clause
+     * @param whereValues
+     *            supply {@code null} to ignore WHERE clause
+     * @return number deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteIgnore(JdbcTemplate jdbcTemplate, String tableName,
+            String[] whereColumns, Object[] whereValues) {
+        return deleteEx(ExDelete.IGNORE, jdbcTemplate, tableName, whereColumns, whereValues);
     }
 
     /**
@@ -109,7 +170,31 @@ public class BaseMysqlDao extends BaseJdbcDao {
      * @since 0.5.0
      */
     protected static int deleteLowPriority(String datasourceName, String tableName) {
-        return deleteEx(ExDelete.LOW_PRIORITY, datasourceName, tableName, null, null);
+        return deleteEx(ExDelete.LOW_PRIORITY, jdbcTemplate(datasourceName), tableName, null, null);
+    }
+
+    /**
+     * Executes a DELETE LOW_PRIORITY statement (without WHERE clause).
+     * 
+     * @param conn
+     * @param tableName
+     * @return number of deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteLowPriority(Connection conn, String tableName) {
+        return deleteEx(ExDelete.LOW_PRIORITY, jdbcTemplate(conn), tableName, null, null);
+    }
+
+    /**
+     * Executes a DELETE LOW_PRIORITY statement (without WHERE clause).
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @return number of deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteLowPriority(JdbcTemplate jdbcTemplate, String tableName) {
+        return deleteEx(ExDelete.LOW_PRIORITY, jdbcTemplate, tableName, null, null);
     }
 
     /**
@@ -141,7 +226,43 @@ public class BaseMysqlDao extends BaseJdbcDao {
      */
     protected static int deleteLowPriority(String datasourceName, String tableName,
             String[] whereColumns, Object[] whereValues) {
-        return deleteEx(ExDelete.LOW_PRIORITY, datasourceName, tableName, whereColumns, whereValues);
+        return deleteEx(ExDelete.LOW_PRIORITY, jdbcTemplate(datasourceName), tableName,
+                whereColumns, whereValues);
+    }
+
+    /**
+     * Executes a DELETE LOW_PRIORITY statement.
+     * 
+     * @param conn
+     * @param tableName
+     * @param whereColumns
+     *            supply {@code null} to ignore WHERE clause
+     * @param whereValues
+     *            supply {@code null} to ignore WHERE clause
+     * @return number of deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteLowPriority(Connection conn, String tableName,
+            String[] whereColumns, Object[] whereValues) {
+        return deleteEx(ExDelete.LOW_PRIORITY, jdbcTemplate(conn), tableName, whereColumns,
+                whereValues);
+    }
+
+    /**
+     * Executes a DELETE LOW_PRIORITY statement.
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @param whereColumns
+     *            supply {@code null} to ignore WHERE clause
+     * @param whereValues
+     *            supply {@code null} to ignore WHERE clause
+     * @return number of deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteLowPriority(JdbcTemplate jdbcTemplate, String tableName,
+            String[] whereColumns, Object[] whereValues) {
+        return deleteEx(ExDelete.LOW_PRIORITY, jdbcTemplate, tableName, whereColumns, whereValues);
     }
 
     /**
@@ -163,7 +284,31 @@ public class BaseMysqlDao extends BaseJdbcDao {
      * @since 0.5.0
      */
     protected static int deleteQuick(String datasourceName, String tableName) {
-        return deleteEx(ExDelete.QUICK, datasourceName, tableName, null, null);
+        return deleteEx(ExDelete.QUICK, jdbcTemplate(datasourceName), tableName, null, null);
+    }
+
+    /**
+     * Executes a DELETE QUICK statement (without WHERE clause).
+     * 
+     * @param conn
+     * @param tableName
+     * @return number of deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteQuick(Connection conn, String tableName) {
+        return deleteEx(ExDelete.QUICK, jdbcTemplate(conn), tableName, null, null);
+    }
+
+    /**
+     * Executes a DELETE QUICK statement (without WHERE clause).
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @return number of deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteQuick(JdbcTemplate jdbcTemplate, String tableName) {
+        return deleteEx(ExDelete.QUICK, jdbcTemplate, tableName, null, null);
     }
 
     /**
@@ -194,7 +339,42 @@ public class BaseMysqlDao extends BaseJdbcDao {
      */
     protected static int deleteQuick(String datasourceName, String tableName,
             String[] whereColumns, Object[] whereValues) {
-        return deleteEx(ExDelete.QUICK, datasourceName, tableName, whereColumns, whereValues);
+        return deleteEx(ExDelete.QUICK, jdbcTemplate(datasourceName), tableName, whereColumns,
+                whereValues);
+    }
+
+    /**
+     * Executes a DELETE QUICK statement.
+     * 
+     * @param conn
+     * @param tableName
+     * @param whereColumns
+     *            supply {@code null} to ignore WHERE clause
+     * @param whereValues
+     *            supply {@code null} to ignore WHERE clause
+     * @return number of deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteQuick(Connection conn, String tableName, String[] whereColumns,
+            Object[] whereValues) {
+        return deleteEx(ExDelete.QUICK, jdbcTemplate(conn), tableName, whereColumns, whereValues);
+    }
+
+    /**
+     * Executes a DELETE QUICK statement.
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @param whereColumns
+     *            supply {@code null} to ignore WHERE clause
+     * @param whereValues
+     *            supply {@code null} to ignore WHERE clause
+     * @return number of deleted rows
+     * @since 0.5.1
+     */
+    protected static int deleteQuick(JdbcTemplate jdbcTemplate, String tableName,
+            String[] whereColumns, Object[] whereValues) {
+        return deleteEx(ExDelete.QUICK, jdbcTemplate, tableName, whereColumns, whereValues);
     }
 
     /*
@@ -202,8 +382,11 @@ public class BaseMysqlDao extends BaseJdbcDao {
      * 
      * @since 0.5.0 add parameter {@code datasourceName} and change type of
      * parameter {@code ex} to {@code ExDelete}
+     * 
+     * @since 0.5.1 change parameter {@code datasourceName} to {@code
+     * jdbcTemplate}.
      */
-    private static int deleteEx(ExDelete ex, String datasourceName, String tableName,
+    private static int deleteEx(ExDelete ex, JdbcTemplate jdbcTemplate, String tableName,
             String[] whereColumns, Object[] whereValues) {
         final String SQL_TEMPLATE_FULL_IGNORE = "DELETE IGNORE FROM {0} WHERE {1}";
         final String SQL_TEMPLATE_IGNORE = "DELETE IGNORE FROM {0}";
@@ -241,7 +424,7 @@ public class BaseMysqlDao extends BaseJdbcDao {
         } else {
             SQL = MessageFormat.format(SQL_TEMPLATE, tableName);
         }
-        return delete(datasourceName, SQL, whereValues);
+        return delete(jdbcTemplate, SQL, whereValues);
     }
 
     /**
@@ -268,7 +451,38 @@ public class BaseMysqlDao extends BaseJdbcDao {
      */
     protected static int insertDelayed(String datasourceName, String tableName,
             String[] columnNames, Object[] values) {
-        return insertEx(ExInsert.DELAYED, datasourceName, tableName, columnNames, values);
+        return insertEx(ExInsert.DELAYED, jdbcTemplate(datasourceName), tableName, columnNames,
+                values);
+    }
+
+    /**
+     * Executes an INSERT DELAYED statement.
+     * 
+     * @param conn
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @return number of inserted rows
+     * @since 0.5.1
+     */
+    protected static int insertDelayed(Connection conn, String tableName, String[] columnNames,
+            Object[] values) {
+        return insertEx(ExInsert.DELAYED, jdbcTemplate(conn), tableName, columnNames, values);
+    }
+
+    /**
+     * Executes an INSERT DELAYED statement.
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @return number of inserted rows
+     * @since 0.5.1
+     */
+    protected static int insertDelayed(JdbcTemplate jdbcTemplate, String tableName,
+            String[] columnNames, Object[] values) {
+        return insertEx(ExInsert.DELAYED, jdbcTemplate, tableName, columnNames, values);
     }
 
     /**
@@ -295,7 +509,38 @@ public class BaseMysqlDao extends BaseJdbcDao {
      */
     protected static int insertIgnore(String datasourceName, String tableName,
             String[] columnNames, Object[] values) {
-        return insertEx(ExInsert.IGNORE, datasourceName, tableName, columnNames, values);
+        return insertEx(ExInsert.IGNORE, jdbcTemplate(datasourceName), tableName, columnNames,
+                values);
+    }
+
+    /**
+     * Executes an INSERT IGNORE statement.
+     * 
+     * @param conn
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @return number of inserted rows
+     * @since 0.5.1
+     */
+    protected static int insertIgnore(Connection conn, String tableName, String[] columnNames,
+            Object[] values) {
+        return insertEx(ExInsert.IGNORE, jdbcTemplate(conn), tableName, columnNames, values);
+    }
+
+    /**
+     * Executes an INSERT IGNORE statement.
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @return number of inserted rows
+     * @since 0.5.1
+     */
+    protected static int insertIgnore(JdbcTemplate jdbcTemplate, String tableName,
+            String[] columnNames, Object[] values) {
+        return insertEx(ExInsert.IGNORE, jdbcTemplate, tableName, columnNames, values);
     }
 
     /**
@@ -322,7 +567,38 @@ public class BaseMysqlDao extends BaseJdbcDao {
      */
     protected static int insertLowPriority(String datasourceName, String tableName,
             String[] columnNames, Object[] values) {
-        return insertEx(ExInsert.LOW_PRIORITY, datasourceName, tableName, columnNames, values);
+        return insertEx(ExInsert.LOW_PRIORITY, jdbcTemplate(datasourceName), tableName,
+                columnNames, values);
+    }
+
+    /**
+     * Executes an INSERT LOW_PRIORITY statement.
+     * 
+     * @param conn
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @return number of inserted rows
+     * @since 0.5.1
+     */
+    protected static int insertLowPriority(Connection conn, String tableName, String[] columnNames,
+            Object[] values) {
+        return insertEx(ExInsert.LOW_PRIORITY, jdbcTemplate(conn), tableName, columnNames, values);
+    }
+
+    /**
+     * Executes an INSERT LOW_PRIORITY statement.
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @return number of inserted rows
+     * @since 0.5.1
+     */
+    protected static int insertLowPriority(JdbcTemplate jdbcTemplate, String tableName,
+            String[] columnNames, Object[] values) {
+        return insertEx(ExInsert.LOW_PRIORITY, jdbcTemplate, tableName, columnNames, values);
     }
 
     /*
@@ -330,8 +606,11 @@ public class BaseMysqlDao extends BaseJdbcDao {
      * 
      * @since 0.5.0 add parameter {@code datasourceName} and change type of
      * parameter {@code ex} to {@code ExInsert}
+     * 
+     * @since 0.5.1 change parameter {@code datasourceName} to {@code
+     * jdbcTemplate}.
      */
-    private static int insertEx(ExInsert ex, String datasourceName, String tableName,
+    private static int insertEx(ExInsert ex, JdbcTemplate jdbcTemplate, String tableName,
             String[] columnNames, Object[] values) {
         if (columnNames.length != values.length) {
             throw new IllegalArgumentException(
@@ -357,7 +636,7 @@ public class BaseMysqlDao extends BaseJdbcDao {
         }
         final String SQL = MessageFormat.format(SQL_TEMPLATE, tableName, SQL_PART_COLUMNS,
                 SQL_PART_VALUES);
-        return insert(datasourceName, SQL, values);
+        return insert(jdbcTemplate, SQL, values);
     }
 
     /**
@@ -394,6 +673,46 @@ public class BaseMysqlDao extends BaseJdbcDao {
     protected static List<Map<String, Object>> select(String datasourceName, String table,
             String[][] columns, String whereClause, Object[] paramValues, int limitOffset,
             int limitRowCount) {
+        return select(jdbcTemplate(datasourceName), table, columns, whereClause, paramValues,
+                limitOffset, limitRowCount);
+    }
+
+    /**
+     * Executes a simple SELECT statement with LIMIT.
+     * 
+     * @param conn
+     * @param table
+     * @param columns
+     * @param whereClause
+     * @param paramValues
+     * @param limitOffset
+     * @param limitRowCount
+     * @return
+     * @since 0.5.1
+     */
+    protected static List<Map<String, Object>> select(Connection conn, String table,
+            String[][] columns, String whereClause, Object[] paramValues, int limitOffset,
+            int limitRowCount) {
+        return select(jdbcTemplate(conn), table, columns, whereClause, paramValues, limitOffset,
+                limitRowCount);
+    }
+
+    /**
+     * Executes a simple SELECT statement with LIMIT.
+     * 
+     * @param jdbcTemplate
+     * @param table
+     * @param columns
+     * @param whereClause
+     * @param paramValues
+     * @param limitOffset
+     * @param limitRowCount
+     * @return
+     * @since 0.5.1
+     */
+    protected static List<Map<String, Object>> select(JdbcTemplate jdbcTemplate, String table,
+            String[][] columns, String whereClause, Object[] paramValues, int limitOffset,
+            int limitRowCount) {
         StringBuilder sql = new StringBuilder("SELECT ");
 
         for (String[] colDef : columns) {
@@ -413,7 +732,7 @@ public class BaseMysqlDao extends BaseJdbcDao {
 
         sql.append(" LIMIT ").append(limitOffset).append(",").append(limitRowCount);
 
-        return select(datasourceName, sql.toString(), paramValues);
+        return select(jdbcTemplate, sql.toString(), paramValues);
     }
 
     /**
@@ -440,7 +759,39 @@ public class BaseMysqlDao extends BaseJdbcDao {
      */
     protected static int updateIgnore(String datasourceName, String tableName,
             String[] columnNames, Object[] values) {
-        return updateEx(ExUpdate.IGNORE, datasourceName, tableName, columnNames, values, null, null);
+        return updateEx(ExUpdate.IGNORE, jdbcTemplate(datasourceName), tableName, columnNames,
+                values, null, null);
+    }
+
+    /**
+     * Executes a UPDATE IGNORE statement (without WHERE clause).
+     * 
+     * @param conn
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @return number affected rows
+     * @since 0.5.1
+     */
+    protected static int updateIgnore(Connection conn, String tableName, String[] columnNames,
+            Object[] values) {
+        return updateEx(ExUpdate.IGNORE, jdbcTemplate(conn), tableName, columnNames, values, null,
+                null);
+    }
+
+    /**
+     * Executes a UPDATE IGNORE statement (without WHERE clause).
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @return number affected rows
+     * @since 0.5.1
+     */
+    protected static int updateIgnore(JdbcTemplate jdbcTemplate, String tableName,
+            String[] columnNames, Object[] values) {
+        return updateEx(ExUpdate.IGNORE, jdbcTemplate, tableName, columnNames, values, null, null);
     }
 
     /**
@@ -477,7 +828,47 @@ public class BaseMysqlDao extends BaseJdbcDao {
      */
     protected static int updateIgnore(String datasourceName, String tableName,
             String[] columnNames, Object[] values, String[] whereColumns, Object[] whereValues) {
-        return updateEx(ExUpdate.IGNORE, datasourceName, tableName, columnNames, values,
+        return updateEx(ExUpdate.IGNORE, jdbcTemplate(datasourceName), tableName, columnNames,
+                values, whereColumns, whereValues);
+    }
+
+    /**
+     * Executes a UPDATE IGNORE statement.
+     * 
+     * @param conn
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @param whereColumns
+     *            supply {@code null} to ignore WHERE clause
+     * @param whereValues
+     *            supply {@code null} to ignore WHERE clause
+     * @return number affected rows
+     * @since 0.5.1
+     */
+    protected static int updateIgnore(Connection conn, String tableName, String[] columnNames,
+            Object[] values, String[] whereColumns, Object[] whereValues) {
+        return updateEx(ExUpdate.IGNORE, jdbcTemplate(conn), tableName, columnNames, values,
+                whereColumns, whereValues);
+    }
+
+    /**
+     * Executes a UPDATE IGNORE statement.
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @param whereColumns
+     *            supply {@code null} to ignore WHERE clause
+     * @param whereValues
+     *            supply {@code null} to ignore WHERE clause
+     * @return number affected rows
+     * @since 0.5.1
+     */
+    protected static int updateIgnore(JdbcTemplate jdbcTemplate, String tableName,
+            String[] columnNames, Object[] values, String[] whereColumns, Object[] whereValues) {
+        return updateEx(ExUpdate.IGNORE, jdbcTemplate, tableName, columnNames, values,
                 whereColumns, whereValues);
     }
 
@@ -505,8 +896,40 @@ public class BaseMysqlDao extends BaseJdbcDao {
      */
     protected static int updateLowPriority(String datasourceName, String tableName,
             String[] columnNames, Object[] values) {
-        return updateEx(ExUpdate.LOW_PRIORITY, datasourceName, tableName, columnNames, values,
+        return updateEx(ExUpdate.LOW_PRIORITY, jdbcTemplate(datasourceName), tableName,
+                columnNames, values, null, null);
+    }
+
+    /**
+     * Executes a UPDATE LOW_PRIORITY statement (without WHERE clause).
+     * 
+     * @param conn
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @return number affected rows
+     * @since 0.5.0
+     */
+    protected static int updateLowPriority(Connection conn, String tableName, String[] columnNames,
+            Object[] values) {
+        return updateEx(ExUpdate.LOW_PRIORITY, jdbcTemplate(conn), tableName, columnNames, values,
                 null, null);
+    }
+
+    /**
+     * Executes a UPDATE LOW_PRIORITY statement (without WHERE clause).
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @return number affected rows
+     * @since 0.5.0
+     */
+    protected static int updateLowPriority(JdbcTemplate jdbcTemplate, String tableName,
+            String[] columnNames, Object[] values) {
+        return updateEx(ExUpdate.LOW_PRIORITY, jdbcTemplate, tableName, columnNames, values, null,
+                null);
     }
 
     /**
@@ -543,7 +966,47 @@ public class BaseMysqlDao extends BaseJdbcDao {
      */
     protected static int updateLowPriority(String datasourceName, String tableName,
             String[] columnNames, Object[] values, String[] whereColumns, Object[] whereValues) {
-        return updateEx(ExUpdate.LOW_PRIORITY, datasourceName, tableName, columnNames, values,
+        return updateEx(ExUpdate.LOW_PRIORITY, jdbcTemplate(datasourceName), tableName,
+                columnNames, values, whereColumns, whereValues);
+    }
+
+    /**
+     * Executes a UPDATE LOW_PRIORITY statement.
+     * 
+     * @param conn
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @param whereColumns
+     *            supply {@code null} to ignore WHERE clause
+     * @param whereValues
+     *            supply {@code null} to ignore WHERE clause
+     * @return number affected rows
+     * @since 0.5.1
+     */
+    protected static int updateLowPriority(Connection conn, String tableName, String[] columnNames,
+            Object[] values, String[] whereColumns, Object[] whereValues) {
+        return updateEx(ExUpdate.LOW_PRIORITY, jdbcTemplate(conn), tableName, columnNames, values,
+                whereColumns, whereValues);
+    }
+
+    /**
+     * Executes a UPDATE LOW_PRIORITY statement.
+     * 
+     * @param jdbcTemplate
+     * @param tableName
+     * @param columnNames
+     * @param values
+     * @param whereColumns
+     *            supply {@code null} to ignore WHERE clause
+     * @param whereValues
+     *            supply {@code null} to ignore WHERE clause
+     * @return number affected rows
+     * @since 0.5.1
+     */
+    protected static int updateLowPriority(JdbcTemplate jdbcTemplate, String tableName,
+            String[] columnNames, Object[] values, String[] whereColumns, Object[] whereValues) {
+        return updateEx(ExUpdate.LOW_PRIORITY, jdbcTemplate, tableName, columnNames, values,
                 whereColumns, whereValues);
     }
 
@@ -552,8 +1015,11 @@ public class BaseMysqlDao extends BaseJdbcDao {
      * 
      * @since 0.5.0 add parameter {@code datasourceName} and change type of
      * parameter {@code ex} to {@code ExUpdate}
+     * 
+     * @since 0.5.1 change parameter {@code datasourceName} to {@code
+     * jdbcTemplate}.
      */
-    private static int updateEx(ExUpdate ex, String datasourceName, String tableName,
+    private static int updateEx(ExUpdate ex, JdbcTemplate jdbcTemplate, String tableName,
             String[] columnNames, Object[] values, String[] whereColumns, Object[] whereValues) {
         final String SQL_TEMPLATE_FULL_IGNORE = "UPDATE IGNORE {0} SET {1} WHERE {2}";
         final String SQL_TEMPLATE_IGNORE = "UPDATE IGNORE {0} SET {1}";
@@ -590,7 +1056,7 @@ public class BaseMysqlDao extends BaseJdbcDao {
                     StringUtils.join(UPDATE_CLAUSE, ','));
             PARAM_VALUES = values;
         }
-        return update(datasourceName, SQL, PARAM_VALUES);
+        return update(jdbcTemplate, SQL, PARAM_VALUES);
     }
 
 }
