@@ -1,7 +1,14 @@
 play-module-plommon
 ===================
 
-0.5.1.1 - 2014-54-05
+0.5.1.2 - 2014-29-06
+--------------------
+- new class `plommon.bo.ProfilingRecord`.
+- `BaseDao`: added new profiling-related methods.
+- `BaseJdbcDao`: automatically collect profiling data.
+
+
+0.5.1.1 - 2014-24-05
 --------------------
 - `BaseJdbcDao` and `BaseMysqlDao`: add new helper methods to perform SQL statements on a supplied `Connection`/`JdbcTemplate`.
 

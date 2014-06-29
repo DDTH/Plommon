@@ -1,6 +1,8 @@
 package com.github.ddth.plommon.bo;
 
 import java.nio.charset.Charset;
+import java.util.LinkedList;
+import java.util.List;
 
 import play.cache.Cache;
 
@@ -15,6 +17,58 @@ public abstract class BaseDao {
     protected final static Charset CHARSET = Charset.forName("UTF-8");
 
     public final static String DEFAULT_DATASOURCE_NAME = "default";
+
+    /**
+     * @since 0.5.1.2
+     */
+    private static ThreadLocal<List<ProfilingRecord>> profilingRecords = new ThreadLocal<List<ProfilingRecord>>() {
+        @Override
+        protected List<ProfilingRecord> initialValue() {
+            return new LinkedList<ProfilingRecord>();
+        }
+    };
+
+    /**
+     * Initializes profiling data.
+     * 
+     * @since 0.5.1.2
+     */
+    public static void startProfiling() {
+        profilingRecords.remove();
+    }
+
+    /**
+     * Clears profiling data.
+     * 
+     * @since 0.5.1.2
+     */
+    public static void clearProfiling() {
+        profilingRecords.remove();
+    }
+
+    /**
+     * Gets current profiling data.
+     * 
+     * @return
+     * @since 0.5.1.2
+     */
+    public static ProfilingRecord[] getProfiling() {
+        return profilingRecords.get().toArray(ProfilingRecord.EMPTY_ARRAY);
+    }
+
+    /**
+     * Adds a new profiling record.
+     * 
+     * @param execTimeMs
+     * @param command
+     * @return
+     * @since 0.5.1.2
+     */
+    public static ProfilingRecord addProfiling(long execTimeMs, String command) {
+        ProfilingRecord record = new ProfilingRecord(execTimeMs, command);
+        profilingRecords.get().add(record);
+        return record;
+    }
 
     /**
      * Initializing method.

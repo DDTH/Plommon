@@ -154,16 +154,21 @@ public class BaseJdbcDao extends BaseDao {
      * @since 0.5.1
      */
     protected static int delete(JdbcTemplate jdbcTemplate, String sql, Object[] whereValues) {
-        List<Object> params = new ArrayList<Object>();
-        if (whereValues != null) {
-            for (Object val : whereValues) {
-                if (!(val instanceof ParamExpression)) {
-                    params.add(val);
+        long timestampStart = System.currentTimeMillis();
+        try {
+            List<Object> params = new ArrayList<Object>();
+            if (whereValues != null) {
+                for (Object val : whereValues) {
+                    if (!(val instanceof ParamExpression)) {
+                        params.add(val);
+                    }
                 }
             }
+            return params.size() > 0 ? jdbcTemplate.update(sql, params.toArray()) : jdbcTemplate
+                    .update(sql);
+        } finally {
+            addProfiling(System.currentTimeMillis() - timestampStart, sql);
         }
-        return params.size() > 0 ? jdbcTemplate.update(sql, params.toArray()) : jdbcTemplate
-                .update(sql);
     }
 
     /**
@@ -360,16 +365,21 @@ public class BaseJdbcDao extends BaseDao {
      * @since 0.5.1
      */
     protected static int insert(JdbcTemplate jdbcTemplate, String sql, Object[] values) {
-        List<Object> params = new ArrayList<Object>();
-        if (values != null) {
-            for (Object val : values) {
-                if (!(val instanceof ParamExpression)) {
-                    params.add(val);
+        long timestampStart = System.currentTimeMillis();
+        try {
+            List<Object> params = new ArrayList<Object>();
+            if (values != null) {
+                for (Object val : values) {
+                    if (!(val instanceof ParamExpression)) {
+                        params.add(val);
+                    }
                 }
             }
+            return params.size() > 0 ? jdbcTemplate.update(sql, params.toArray()) : jdbcTemplate
+                    .update(sql);
+        } finally {
+            addProfiling(System.currentTimeMillis() - timestampStart, sql);
         }
-        return params.size() > 0 ? jdbcTemplate.update(sql, params.toArray()) : jdbcTemplate
-                .update(sql);
     }
 
     /**
@@ -506,16 +516,21 @@ public class BaseJdbcDao extends BaseDao {
      */
     protected static List<Map<String, Object>> select(JdbcTemplate jdbcTemplate, String sql,
             Object[] paramValues) {
-        List<Object> params = new ArrayList<Object>();
-        if (paramValues != null) {
-            for (Object val : paramValues) {
-                if (!(val instanceof ParamExpression)) {
-                    params.add(val);
+        long timestampStart = System.currentTimeMillis();
+        try {
+            List<Object> params = new ArrayList<Object>();
+            if (paramValues != null) {
+                for (Object val : paramValues) {
+                    if (!(val instanceof ParamExpression)) {
+                        params.add(val);
+                    }
                 }
             }
+            return params.size() > 0 ? jdbcTemplate.queryForList(sql, params.toArray())
+                    : jdbcTemplate.queryForList(sql);
+        } finally {
+            addProfiling(System.currentTimeMillis() - timestampStart, sql);
         }
-        return params.size() > 0 ? jdbcTemplate.queryForList(sql, params.toArray()) : jdbcTemplate
-                .queryForList(sql);
     }
 
     /**
@@ -651,16 +666,21 @@ public class BaseJdbcDao extends BaseDao {
      * @since 0.5.1
      */
     protected static int update(JdbcTemplate jdbcTemplate, String sql, Object[] paramValues) {
-        List<Object> params = new ArrayList<Object>();
-        if (paramValues != null) {
-            for (Object val : paramValues) {
-                if (!(val instanceof ParamExpression)) {
-                    params.add(val);
+        long timestampStart = System.currentTimeMillis();
+        try {
+            List<Object> params = new ArrayList<Object>();
+            if (paramValues != null) {
+                for (Object val : paramValues) {
+                    if (!(val instanceof ParamExpression)) {
+                        params.add(val);
+                    }
                 }
             }
+            return params.size() > 0 ? jdbcTemplate.update(sql, params.toArray()) : jdbcTemplate
+                    .update(sql);
+        } finally {
+            addProfiling(System.currentTimeMillis() - timestampStart, sql);
         }
-        return params.size() > 0 ? jdbcTemplate.update(sql, params.toArray()) : jdbcTemplate
-                .update(sql);
     }
 
     /**
