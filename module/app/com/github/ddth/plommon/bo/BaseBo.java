@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.ddth.commons.utils.DPathUtils;
 import com.github.ddth.commons.utils.SerializationUtils;
@@ -27,9 +28,10 @@ public class BaseBo {
      * @return
      * @since 0.3.1
      */
+    @JsonIgnore
     public boolean isDirty() {
         Boolean result = getAttribute("__dirty__", Boolean.class);
-        return result != null ? result.booleanValue() : null;
+        return result != null ? result.booleanValue() : false;
     }
 
     /**
@@ -126,12 +128,12 @@ public class BaseBo {
     synchronized public BaseBo fromJson(String jsonString) {
         BaseBo other = SerializationUtils.fromJsonString(jsonString, BaseBo.class);
         if (other != null) {
-            // this.attributes = other.attributes;
             other.markClean();
+            this.attributes = other.attributes != null ? other.attributes
+                    : new HashMap<String, Object>();
+            return this;
         }
-        // markClean();
-        // return this;
-        return other;
+        return null;
     }
 
     /**
@@ -141,6 +143,18 @@ public class BaseBo {
      */
     synchronized public String toJson() {
         return SerializationUtils.toJsonString(this);
+    }
+
+    /**
+     * Constructs a new BO from a JSON string.
+     * 
+     * @param jsonString
+     * @param clazz
+     * @return
+     * @since 0.5.1.3
+     */
+    public static <T extends BaseBo> T newObjectFromJson(String jsonString, Class<T> clazz) {
+        return SerializationUtils.fromJsonString(jsonString, clazz);
     }
 
     /**
@@ -167,5 +181,14 @@ public class BaseBo {
         HashCodeBuilder hcb = new HashCodeBuilder(19, 81);
         hcb.append(attributes);
         return hcb.hashCode();
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @since 0.5.1.3
+     */
+    public String toString() {
+        return toJson();
     }
 }

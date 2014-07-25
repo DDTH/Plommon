@@ -1,14 +1,21 @@
 play-module-plommon
 ===================
 
-0.5.1.2 - 2014-29-06
+0.5.1.3 - 2014-07-26
+--------------------
+- Bux fix in `BaseBo`: serialization to/from json.
+- New method `BaseBo.toString()`
+- New static method `BaseBo.newObjectFromJson()`
+
+
+0.5.1.2 - 2014-06-29
 --------------------
 - new class `plommon.bo.ProfilingRecord`.
 - `BaseDao`: added new profiling-related methods.
 - `BaseJdbcDao`: automatically collect profiling data.
 
 
-0.5.1.1 - 2014-24-05
+0.5.1.1 - 2014-05-24
 --------------------
 - `BaseJdbcDao` and `BaseMysqlDao`: add new helper methods to perform SQL statements on a supplied `Connection`/`JdbcTemplate`.
 
