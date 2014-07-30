@@ -1,7 +1,7 @@
 play-module-plommon
 ===================
 
-0.5.1.4 - 2014-07-31
+0.5.1.5 - 2014-07-31
 --------------------
 - Various bugs fixed in package `com.github.ddth.plommon.bo.nosql`.
 
