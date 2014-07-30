@@ -51,7 +51,7 @@ public abstract class BaseNosqlDao extends BaseDao {
         String engineType = PlayAppUtils.appConfigString(MessageFormat.format(
                 CONF_KEY_NOSQL_ENGINE, datasourceName));
         if (NOSQL_ENGINE_CASSANDRA_WIDEROW.equalsIgnoreCase(engineType)) {
-            return new WideRowJsonCassandraNosqlEngine().init();
+            return new WideRowJsonCassandraNosqlEngine().setDatasourceName(datasourceName).init();
         }
         String msg = "Unsupport NoSQL engine type [{0}] (datasource: {1})";
         throw new IllegalArgumentException(MessageFormat.format(msg,
