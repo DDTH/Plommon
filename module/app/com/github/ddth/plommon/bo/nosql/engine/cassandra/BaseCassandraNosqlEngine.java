@@ -75,6 +75,28 @@ public abstract class BaseCassandraNosqlEngine extends BaseNosqlEngine {
         return StringUtils.isEmpty(keyspace) ? cluster.connect() : cluster.connect(keyspace);
     }
 
+    /**
+     * Sets datasource's name.
+     * 
+     * @param datasourceName
+     * @return
+     * @since 0.5.1.4
+     */
+    public BaseCassandraNosqlEngine setDatasourceName(String datasourceName) {
+        this.datasourceName = datasourceName;
+        return this;
+    }
+
+    /**
+     * Gets datasource's name.
+     * 
+     * @return
+     * @since 0.5.1.4
+     */
+    protected String getDatasourceName() {
+        return datasourceName;
+    }
+
     public BaseCassandraNosqlEngine init() {
         super.init();
 
